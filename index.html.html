@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YONZA | Modern Streetwear</title>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #ffffff;
+            --accent-color: #f5f5f5;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-weight: 900;
+            letter-spacing: -0.03em;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        button, .button {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border: none;
+            padding: 12px 32px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        button:hover, .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        section {
+            padding: 60px 0;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.98);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-link {
+            font-weight: 700;
+            text-transform: uppercase;
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        .nav-link:hover:after, .nav-link.active:after {
+            width: 100%;
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 10px;
+        }
+        
+        /* Home Page */
+        .home-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-image {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 80%;
+            width: 50%;
+            background-image: url('images/hero\ image.jpg.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.9;
+        }
+        
+        .hero-title {
+            font-size: clamp(3rem, 10vw, 8rem);
+            line-height: 0.9;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+        
+        /* Shop Page */
+        .shop-section {
+            min-height: 100vh;
+            padding-top: 100px;
+        }
+        
+        .category-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+        
+        .category-tab {
+            padding: 8px 16px;
+            background-color: var(--accent-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .category-tab:hover, .category-tab.active {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background-color: var(--accent-color);
+            margin-bottom: 15px;
+            background-image: url('/api/placeholder/400/500');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .product-price {
+            font-weight: 700;
+        }
+        
+        /* About Page */
+        .about-section {
+            min-height: 100vh;
+            padding-top: 100px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .about-title {
+            font-size: clamp(2rem, 6vw, 4rem);
+        }
+        
+        .about-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            max-width: 700px;
+        }
+        
+        .about-image {
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 1/1;
+            background-image: url('about/nz.png');
+            background-size: cover;
+            background-position: center;
+            margin: 30px 0;
+        }
+        
+        /* Contact Page */
+        .contact-section {
+            min-height: 100vh;
+            padding-top: 100px;
+        }
+        
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        
+        .contact-title {
+            font-size: clamp(2rem, 6vw, 4rem);
+            grid-column: 1 / -1;
+        }
+        
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .form-group label {
+            font-weight: 700;
+        }
+        
+        .form-group input, .form-group textarea {
+            padding: 12px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .social-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            transform: translateX(5px);
+        }
+        
+        .social-icon {
+            width: 24px;
+            height: 24px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .footer-link-title {
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        .slide-in {
+            animation: slideIn 0.8s ease forwards;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-image {
+                width: 45%;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                height: 0;
+                background-color: var(--secondary-color);
+                flex-direction: column;
+                align-items: center;
+                padding: 0;
+                overflow: hidden;
+                transition: var(--transition);
+                visibility: hidden;
+            }
+            
+            .nav-links.active {
+                height: auto;
+                padding: 30px 0;
+                visibility: visible;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .hero-image {
+                position: relative;
+                width: 100%;
+                height: 50vh;
+                margin-top: 30px;
+                transform: none;
+                top: 0;
+            }
+            
+            .hero-content {
+                text-align: center;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo" style="display: flex; align-items: center; gap: 15px;">
+                <a href="#home" style="font-size: 2rem; font-weight: 900; letter-spacing: -0.05em; color: inherit; text-decoration: none;">YONZA</a>
+                <a href="https://www.instagram.com/yonza.eg" target="_blank" aria-label="Instagram">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style="width: 24px; height: 24px;">
+                </a>
+            </div>
+    
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="#home" class="nav-link active" onclick="setActivePage('home')">Home</a>
+                <a href="#shop" class="nav-link" onclick="setActivePage('shop')">Shop</a>
+                <a href="#about" class="nav-link" onclick="setActivePage('about')">About</a>
+                <a href="#contact" class="nav-link" onclick="setActivePage('contact')">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+
+    <!-- Home Page -->
+    <section id="home" class="home-section">
+        <div class="container hero-content">
+            <h1 class="hero-title fade-in">BOLD<br>MINIMAL<br>YONZA</h1>
+            <p class="hero-subtitle fade-in">Premium streetwear for those who dare to stand out. Clean designs with attitude.</p>
+            <button class="fade-in" onclick="setActivePage('shop')">SHOP NOW</button>
+        </div>
+        <div class="hero-image"></div>
+    </section>
+
+    <!-- Shop Page -->
+    <section id="shop" class="shop-section" style="display: none;">
+        <div class="container">
+            <h2 class="section-title slide-in">Shop Collection</h2>
+            <div class="category-tabs">
+                <div class="category-tab active" onclick="filterProducts('all')">All</div>
+                <div class="category-tab" onclick="filterProducts('tshirts')">T-Shirts</div>
+                <div class="category-tab" onclick="filterProducts('hoodies')">Hoodies</div>
+                <div class="category-tab" onclick="filterProducts('Sets')">Sets</div>
+            </div>
+            <div class="products-grid">
+                <!-- T-Shirts -->
+                <div class="product-card" data-category="tshirts">
+                    <div class="product-image" style="background-image: url('Products/basic tee.jpg');"></div>
+                    <h3 class="product-title">YONZA Basic Tee</h3>
+                    <p class="product-price">500 LE</p>
+                </div>
+                <div class="product-card" data-category="tshirts">
+                    <div class="product-image" style="background-image: url('Products/b8w.png');"></div>
+                    <h3 class="product-title">YONZA Logo Tee</h3>
+                    <p class="product-price"> 600 LE</p>
+                </div>
+                <div class="product-card" data-category="tshirts">
+                    <div class="product-image" style="background-image: url('Products/D.jpg');"></div>
+                    <h3 class="product-title">YONZA TEE</h3>
+                    <p class="product-price">450 LE</p>
+                </div>
+                
+                <!-- Hoodies -->
+                <div class="product-card" data-category="hoodies">
+                    <div class="product-image" style="background-image: url('Products/nnn.png');"></div>
+                    <h3 class="product-title">Yonza Hoodie</h3>
+                    <p class="product-price">700 LE</p>
+                </div>
+                <div class="product-card" data-category="hoodies">
+                    <div class="product-image" style="background-image: url('Products/nnn-1.PNG');"></div>
+                    <h3 class="product-title">YONZA Oversized Hoodie</h3>
+                    <p class="product-price">600 LE</p>
+                </div>
+                
+                <!-- Sets -->
+                <div class="product-card" data-category="Sets">
+                    <div class="product-image" style="background-image: url('Products/C.jpg');"></div>
+                    <h3 class="product-title">Minimalist Cap</h3>
+                    <p class="product-price">700 LE</p>
+                </div>
+                <div class="product-card" data-category="Sets">
+                    <div class="product-image" style="background-image: url('Products/CC.jpeg');"></div>
+                    <h3 class="product-title">Urban Tote Bag</h3>
+                    <p class="product-price">450 LE</p>
+                </div>
+                <div class="product-card" data-category="Sets">
+                    <div class="product-image" style="background-image: url('Products/CCC.jpeg');"></div>
+                    <h3 class="product-title">Statement Socks</h3>
+                    <p class="product-price">400 LE</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Page -->
+    <section id="about" class="about-section" style="display: none;">
+        <div class="container about-content">
+            <h2 class="about-title slide-in">Our Story</h2>
+            <p class="about-text slide-in">
+                In a world that follows the rules, yonza was born to break them. We are not just a brand; we are a movement, a rebellion against the ordinary and a commitment to individuality.
+
+            </p>
+            <p class="about-text slide-in">
+                We create minimal, bold streetwear that speaks volumes without saying too much. Each piece is designed with purpose and crafted with quality materials that stand the test of time.
+            </p>
+            <div class="about-image slide-in"></div>
+            <p class="about-text slide-in">
+                Our philosophy is simple: less is more. We believe in clean lines, strong silhouettes, and the power of black and white. YONZA isn't just clothing—it's a statement about who you are and what you stand for.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Page -->
+    <section id="contact" class="contact-section" style="display: none;">
+        <div class="container">
+            <h2 class="contact-title slide-in">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-form slide-in">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" placeholder="Your message"></textarea>
+                    </div>
+                    <button type="submit">Send Message</button>
+                </div>
+                <div class="social-links slide-in">
+                    <h3 class="social-title">Follow Us</h3>
+                    <a href="#" class="social-link">
+                        <span class="social-icon">IG</span>
+                        @yonza.eg
+                    </a>
+                    <a href="#" class="social-link">
+                        <span class="social-icon">TT</span>
+                        @yonza
+                    </a>
+                    <a href="#" class="social-link">
+                        <span class="social-icon">FB</span>
+                        /yonzaclothing
+                    </a>
+                    <a href="#" class="social-link">
+                        <span class="social-icon">📧</span>
+                        hello@yonza.com
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links-group">
+                    <div class="footer-logo">YONZA</div>
+                    <p>Premium streetwear with attitude</p>
+                </div>
+                <div class="footer-links-group">
+                    <h4 class="footer-link-title">Shop</h4>
+                    <a href="#shop" onclick="setActivePage('shop')">All Products</a>
+                    <a href="#shop" onclick="filterProducts('tshirts')">T-Shirts</a>
+                    <a href="#shop" onclick="filterProducts('hoodies')">Hoodies</a>
+                    <a href="#shop" onclick="filterProducts('Sets')">Sets</a>
+                </div>
+                <div class="footer-links-group">
+                    <h4 class="footer-link-title">Info</h4>
+                    <a href="#about" onclick="setActivePage('about')">About Us</a>
+                    <a href="#">Shipping</a>
+                    <a href="#">Returns</a>
+                    <a href="#contact" onclick="setActivePage('contact')">Contact</a>
+                </div>
+                <div class="footer-links-group">
+                    <h4 class="footer-link-title">Legal</h4>
+                    <a href="#">Terms & Conditions</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2025 YONZA. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation and page switching
+        function setActivePage(page) {
+            // Hide all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show selected section
+            document.getElementById(page).style.display = 'flex';
+            
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            const activeLink = document.querySelector(`.nav-link[href="#${page}"]`);
+            if (activeLink) activeLink.classList.add('active');
+            
+            // Close mobile menu if open
+            document.getElementById('navLinks').classList.remove('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            // Add animations
+            const elementsToAnimate = document.querySelectorAll(`#${page} .fade-in, #${page} .slide-in`);
+            elementsToAnimate.forEach((element, index) => {
+                element.style.opacity = '0';
+                setTimeout(() => {
+                    element.style.animation = 'none';
+                    void element.offsetWidth; // Trigger reflow
+                    element.style.animation = element.classList.contains('fade-in') ? 
+                        'fadeIn 0.8s ease forwards' : 
+                        'slideIn 0.8s ease forwards';
+                    element.style.animationDelay = `${index * 0.1}s`;
+                }, 100);
+            });
+        }
+        
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+        
+        // Product filtering
+        function filterProducts(category) {
+            const productCards = document.querySelectorAll('.product-card');
+            const categoryTabs = document.querySelectorAll('.category-tab');
+            
+            // Update active tab
+            categoryTabs.forEach(tab => tab.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            // Filter products
+            productCards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        // Initialize the site
+        document.addEventListener('DOMContentLoaded', function() {
+            setActivePage('home');
+            
+            // Handle hash changes
+            window.addEventListener('hashchange', function() {
+                const hash = window.location.hash.substring(1);
+                if (hash) {
+                    setActivePage(hash);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
